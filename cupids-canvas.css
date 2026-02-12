@@ -145,27 +145,27 @@ body{
 }
 
 .clouds{
-  top:-220px;          /* move up */
-  width:80%;         /* size */
+  top:-220px;          
+  width:80%;         
   opacity:.9;
   animation: driftClouds 22s linear infinite;
 }
 .clouds.c2{
-  top:-200px;            /* slightly lower for depth */
+  top:-200px;            
   left:-25%;
   width:80%;
   opacity:.75;
   animation-duration: 30s;
 }
 
-/* ===== TREES (smaller + anchored) ===== */
+
 .trees{
-  bottom:86px;        /* lift trees up/down */
-  width:100%;         /* smaller than before */
+  bottom:86px;        
+  width:100%;       
   height:auto;
   opacity:.80;
   transform-origin: bottom;
-  transform: scaleY(.86);   /* reduces “too tall” look */
+  transform: scaleY(.86);  
   animation: driftTrees 28s linear infinite;
 }
 .trees.t2{
@@ -254,4 +254,4 @@ body{
   0%{ transform: translateX(0) translateY(0) scale(.8); opacity:0; }
   20%{ opacity:.9; }
   100%{ transform: translateX(-70px) translateY(-30px) scale(1.2); opacity:0; }
-}
+}
