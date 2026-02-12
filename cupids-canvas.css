@@ -1,43 +1,257 @@
-/* Valentine's Day Color Palette & Variables */
-:root {
-  --cupid-pink: #ffafcc;
-  --valentine-red: #ff4d6d;
-  --love-purple: #c77dff;
-  --chocolate: #7b3f00;
-  --vanilla: #fffaf0;
-  
-  /* Spacing Variables */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 1rem;
-  --space-4: 2rem;
+:root{
+  --cupid-pink:#ffafcc;
+  --valentine-red:#ff4d6d;
+  --love-purple:#c77dff;
+  --vanilla:#fffaf0;
+  --ink:#2a2430;
+  --line:rgba(0,0,0,.08);
+  --card: rgba(255,250,240,.92);
 }
 
-/* Reduced Motion Preferences */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition: none !important;
-  }
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  font-family:Poppins, system-ui, sans-serif;
+  color:var(--ink);
+  background: radial-gradient(circle at 20% 0%, var(--vanilla), #f4f0ff);
 }
 
-/* CSS-only page navigation with :target */
-.page {
-  display: none;
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 16px;
+  background:var(--card);
+  border-bottom:1px solid var(--line);
+  backdrop-filter: blur(8px);
 }
 
-.page:target {
-  display: block;
+.logo{
+  font-family:"Great Vibes", cursive;
+  font-size:1.9rem;
+  text-decoration:none;
+  color:var(--valentine-red);
 }
 
-/* Heart animation example */
-@keyframes heartbeat {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+.nav{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+.nav a{
+  text-decoration:none;
+  color:var(--ink);
+  padding:6px 10px;
+  border-radius:999px;
+  position:relative;
+  outline:none;
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:10px; right:10px; bottom:4px;
+  height:2px;
+  background:linear-gradient(90deg,var(--cupid-pink),var(--love-purple));
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .2s ease;
+}
+.nav a:hover,
+.nav a:focus-visible{ background:rgba(255,77,109,.10); }
+.nav a:hover::after,
+.nav a:focus-visible::after{ transform:scaleX(1); }
+
+
+.page{ display:none; padding:24px 16px; }
+.page:target{ display:block; }
+
+
+#intro{ display:block; }
+#ride:target ~ #intro,
+#ending:target ~ #intro{ display:none; }
+
+.wrap{ max-width:960px; margin:0 auto; }
+
+.hero{
+  background: linear-gradient(135deg, rgba(255,175,204,.45), rgba(199,125,255,.22));
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
 }
 
-.heart {
-  animation: heartbeat 1.5s ease-in-out infinite;
+.hero-title{
+  font-family:"Great Vibes", cursive;
+  color:var(--valentine-red);
+  font-size: clamp(2.6rem, 6vw, 3.8rem);
+  margin:0 0 6px;
 }
+
+.hero-title.small{ font-size: clamp(2rem, 4.5vw, 2.8rem); }
+
+.hero-text{ margin:0; max-width: 62ch; }
+
+.hero-actions{
+  margin-top:14px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+
+.button{
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:999px;
+  text-decoration:none;
+  color:white;
+  background:linear-gradient(90deg,var(--valentine-red),var(--love-purple));
+}
+.button.small{ padding:8px 12px; font-size:.95rem; }
+.button.ghost{
+  background:transparent;
+  color:var(--ink);
+  border:1px solid var(--line);
+}
+
+.pager{ margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
+
+.footer{
+  max-width:960px;
+  margin:18px auto 0;
+  text-align:center;
+  opacity:.8;
+  padding:0 16px;
+}
+
+
+.scene{
+  position:relative;
+  height:320px;
+  margin-top:14px;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background: linear-gradient(#dff2ff, #fff7fb 58%, #bff3d8 58%);
+}
+
+.layer{
+  position:absolute;
+  left:0;
+  height:auto;
+  pointer-events:none;
+
+}
+
+.clouds{
+  top:-220px;          /* move up */
+  width:80%;         /* size */
+  opacity:.9;
+  animation: driftClouds 22s linear infinite;
+}
+.clouds.c2{
+  top:-200px;            /* slightly lower for depth */
+  left:-25%;
+  width:80%;
+  opacity:.75;
+  animation-duration: 30s;
+}
+
+/* ===== TREES (smaller + anchored) ===== */
+.trees{
+  bottom:86px;        /* lift trees up/down */
+  width:100%;         /* smaller than before */
+  height:auto;
+  opacity:.80;
+  transform-origin: bottom;
+  transform: scaleY(.86);   /* reduces “too tall” look */
+  animation: driftTrees 28s linear infinite;
+}
+.trees.t2{
+  bottom:50px;
+  left:-55%;
+  width: 80%;
+  height: -20;
+  opacity:.80;
+  transform: scaleY(.82);
+  animation-duration: 30s;
+}
+
+@keyframes driftClouds{
+  to{ transform: translateX(45%); }
+}
+@keyframes driftTrees{
+  to{ transform: translateX(30%); }
+}
+
+
+.birds{
+  position:absolute;
+  top:48px;
+  width:80px;
+  height:auto;
+  opacity:.8;
+  pointer-events:none;
+  animation: fly 9s linear infinite;
+}
+.b1{ left:-120px; }
+.b2{ left:-220px; top:78px; animation-duration: 12s; opacity:.65; }
+
+@keyframes fly{
+  to{ transform: translateX(1200px); }
+}
+
+
+.ride{
+  position:absolute;
+  left:30%;
+  bottom:40px;
+  width:min(520px, 88%);
+  height:160px;
+  animation: bob 1s ease-in-out infinite;
+}
+@keyframes bob{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(2px); }
+}
+
+.horse{
+  position:absolute;
+  left:0;
+  bottom:18px;
+  width:180px;
+  height:auto;
+  animation: trot 0.6s ease-in-out infinite;
+}
+@keyframes trot{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(2px); }
+}
+
+.carriage{
+  position:absolute;
+  left:170px;
+  bottom:0;
+  width:250px;
+  height:auto;
+}
+
+.hearts{
+  position:absolute;
+  width:26px;
+  height:auto;
+  left:500px;
+  bottom:20px;
+  opacity:0;
+  animation: heartPop 2.2s ease-in-out infinite;
+}
+.h1{ animation-delay:0s; }
+.h2{ animation-delay:.6s; left:500px; bottom:30px; }
+.h3{ animation-delay:1.2s; left:500px; bottom:40px; }
+
+@keyframes heartPop{
+  0%{ transform: translateX(0) translateY(0) scale(.8); opacity:0; }
+  20%{ opacity:.9; }
+  100%{ transform: translateX(-70px) translateY(-30px) scale(1.2); opacity:0; }
+}
